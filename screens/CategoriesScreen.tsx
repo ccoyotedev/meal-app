@@ -6,6 +6,8 @@ import {
 import { CATEGORIES } from '../data/dummy-data';
 import Category from '../models/category';
 import CategoryGridTile from '../components/CategoryGridTile';
+import {HeaderButtons, Item} from 'react-navigation-header-buttons';
+import HeaderButton from '../components/HeaderButton'
 
 
 const CategoriesScreen: NavigationStackScreenComponent = ({navigation}) => {
@@ -29,6 +31,17 @@ const CategoriesScreen: NavigationStackScreenComponent = ({navigation}) => {
   return (
     <FlatList data={CATEGORIES} renderItem={renderGridItem} numColumns={2} />
   );
+}
+
+CategoriesScreen.navigationOptions = (navData) => {
+  return {
+    headerLeft: () => <HeaderButtons HeaderButtonComponent={HeaderButton}>
+      <Item
+        title="Menu"
+        iconName='ios-menu'
+      />
+    </HeaderButtons>
+  }
 }
 
 const styles = StyleSheet.create({

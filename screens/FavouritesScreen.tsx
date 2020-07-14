@@ -1,16 +1,38 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import {
+  NavigationStackScreenComponent
+} from 'react-navigation-stack';
+import { MEALS } from '../data/dummy-data';
+import { StyleSheet } from 'react-native';
+import MealList from '../components/MealList';
+import {HeaderButtons, Item} from 'react-navigation-header-buttons';
+import HeaderButton from '../components/HeaderButton'
 
-interface FavouritesScreenProps {
 
+const FavouritesScreen: NavigationStackScreenComponent = ({navigation}) => {
+  const favMeals = MEALS.filter(meal => meal.id === 'm1' || meal.id === 'm2')
+  return (
+    <MealList
+      onPress={(id) => {
+        navigation.navigate({
+          routeName: 'MealDetail',
+          params: {mealId: id}
+        })
+      }}
+      listData={favMeals}
+    />
+  );
 }
 
-const FavouritesScreen: React.FC<FavouritesScreenProps> = ({}) => {
-    return (
-      <View style={styles.screen}>
-        <Text>The Favourites Screen</Text>
-      </View>
-    );
+FavouritesScreen.navigationOptions = (navData) => {
+  return {
+    headerLeft: () => <HeaderButtons HeaderButtonComponent={HeaderButton}>
+      <Item
+        title="Menu"
+        iconName='ios-menu'
+      />
+    </HeaderButtons>
+  }
 }
 
 const styles = StyleSheet.create({

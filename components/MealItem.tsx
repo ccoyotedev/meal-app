@@ -3,21 +3,18 @@ import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react
 import Meal from '../models/meal';
 
 interface MealItemProps {
-  title: string,
   onPress: () => void,
-  duration: number,
-  affordability: string,
-  complexity: string,
-  image: string
+  item: Meal
 }
 
-const MealItem: React.FC<MealItemProps> = ({title, onPress, duration, affordability, complexity, image}) => {
+const MealItem: React.FC<MealItemProps> = ({onPress, item}) => {
+  const {title, duration, affordability, complexity, imageUrl} = item
   return (
     <View style={styles.mealItem}>
       <TouchableOpacity onPress={onPress}>
         <View>
           <View style={{...styles.mealRow, ...styles.mealHeader}}>
-            <ImageBackground source={{uri: image}} style={styles.image}>
+            <ImageBackground source={{uri: imageUrl}} style={styles.image}>
               <View style={styles.titleContainer}>
                 <Text style={styles.title} numberOfLines={1}>
                   {title}
