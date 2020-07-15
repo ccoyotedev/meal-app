@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
+import MealDetails from '../components/MealDetails';
 import Meal from '../models/meal';
 
 interface MealItemProps {
@@ -23,15 +24,11 @@ const MealItem: React.FC<MealItemProps> = ({onPress, item}) => {
             </ImageBackground>
           </View>
           <View style={{...styles.mealRow, ...styles.mealDetails}}>
-            <Text>
-              {duration}
-            </Text>
-            <Text>
-              {complexity.toUpperCase()}
-            </Text>
-            <Text>
-              {affordability.toUpperCase()}
-            </Text>
+            <MealDetails
+              affordability={affordability}
+              complexity={complexity}
+              duration={duration}
+            />
           </View>
         </View>
       </TouchableOpacity>
