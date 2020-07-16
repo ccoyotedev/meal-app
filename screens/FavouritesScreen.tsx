@@ -2,21 +2,37 @@ import React from 'react'
 import {
   NavigationStackScreenComponent
 } from 'react-navigation-stack';
-import { MEALS } from '../data/dummy-data';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import MealList from '../components/MealList';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
-import HeaderButton from '../components/HeaderButton'
+import HeaderButton from '../components/HeaderButton';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/index';
+import DefaultStyles from '../constants/DefaultStyles';
 
 
 const FavouritesScreen: NavigationStackScreenComponent = ({navigation}) => {
-  const favMeals = MEALS.filter(meal => meal.id === 'm1' || meal.id === 'm2')
+  const favMeals = useSelector((state:RootState) => state.meals.favouriteMeals);
+
+  if (favMeals.length <= 0) {
+    return (
+      <View style={styles.content}>
+        <Text style={DefaultStyles.baseText}>
+          No favourite meals found... Start adding some!
+        </Text>
+      </View>
+    )
+  }
+
   return (
     <MealList
-      onPress={(id) => {
+      onSelect={(item) => {
         navigation.navigate({
           routeName: 'MealDetail',
-          params: {mealId: id}
+          params: {
+            mealId: item.id,
+            mealTitle: item.title
+          }
         })
       }}
       listData={favMeals}
@@ -36,7 +52,7 @@ FavouritesScreen.navigationOptions = (navData) => {
 }
 
 const styles = StyleSheet.create({
-  screen: {
+  content: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'

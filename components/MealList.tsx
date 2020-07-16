@@ -5,15 +5,15 @@ import MealItem from '../components/MealItem';
 
 interface MealListProps {
   listData: Meal[],
-  onPress: (id: string) => void
+  onSelect: (item: Meal) => void
 }
 
-const MealList: React.FC<MealListProps> = ({listData, onPress}) => {
+const MealList: React.FC<MealListProps> = ({listData, onSelect}) => {
   const renderMealItem = ({item}: {item: Meal}) => {
     return (
       <MealItem
         item={item}
-        onPress={() => onPress(item.id)}
+        onPress={() => onSelect(item)}
       />
     )
   }
